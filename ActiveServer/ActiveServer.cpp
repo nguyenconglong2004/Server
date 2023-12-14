@@ -14,7 +14,7 @@ Server::Server(QWidget *parent)
     if (x == 4) ui.label_4->setText("False");
     if (x == 5) ui.label_5->setText("False");
     mouseUpdateTimer = new QTimer(this);
-    connect(mouseUpdateTimer, &QTimer::timeout, this, &Server::moveMouse);
+    connect(mouseUpdateTimer, &QTimer::timeout, this, &Server::EventRecieve);
     mouseUpdateTimer->start(10); // Cập nhật mỗi 10ms
 }
 
@@ -22,17 +22,18 @@ Server::~Server()
 {
     sk.break_up();
 }
-void Server::moveMouse() {
+void Server::EventRecieve() {
     if (sk.recieve() == 1) {
         QPoint currentPos = QCursor::pos();
         for (int i = 0; i < 3; i++) {
             DataEvent[i] = sk.data[i];
         }
-        QCursor::setPos(DataEvent[1], DataEvent[2]);
+
         ui.movePos->setText("Mouse Move Pos: X: " + QString::number(DataEvent[1]) + "Y: " + QString::number(DataEvent[2]));
         int type = DataEvent[0];
         if (type == 0) {
             //ui.Double_click->setText("Type = X: " + QString::number(DataEvent[1]) + "Y: " + QString::number(DataEvent[2]));
+            QCursor::setPos(DataEvent[1], DataEvent[2]);
         }
         else {
             if (type == 1) {
