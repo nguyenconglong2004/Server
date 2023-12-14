@@ -14,7 +14,6 @@ class Server : public QMainWindow
 public:
     Server(QWidget *parent = nullptr);
     void EventRecieve();
-    void keyPressEvent(QKeyEvent* event);
     ~Server();
 private:
     int DataEvent[3] = { 0 };

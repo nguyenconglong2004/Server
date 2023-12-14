@@ -88,6 +88,3 @@ void Server::EventRecieve() {
         }
     }
 }
-void Server::keyPressEvent(QKeyEvent* event) {
-    //ui.key_press->setText(QChar(event->key()));
-}
